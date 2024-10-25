@@ -1,0 +1,14 @@
+nejmene destivy mesic = 
+VAR _tabulka = 
+ADDCOLUMNS(
+ALL(data[rok],data[mesic]),
+"suma srazek",
+CALCULATE(SUM(data[srazky])),
+"rok_mesic",
+data[rok]&"/"&data[mesic])
+
+VAR _min_hodnota = minx(_tabulka,[suma srazek])
+RETURN
+CONCATENATEX(
+    FILTER(_tabulka,[suma srazek] = _min_hodnota),
+[rok_mesic],", ")
